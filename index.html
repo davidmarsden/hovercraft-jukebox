@@ -129,6 +129,17 @@
             background: linear-gradient(135deg, rgba(204, 41, 54, 0.3), rgba(43, 90, 160, 0.2));
         }
 
+        .track-item.disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .track-item.disabled:hover {
+            transform: none;
+            border-left-color: transparent;
+            box-shadow: none;
+        }
+
         .track-info {
             flex: 1;
             color: white;
@@ -266,6 +277,15 @@
             transform: scale(1.15);
         }
 
+        .control-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .control-btn:disabled:hover {
+            transform: none;
+        }
+
         .control-btn.active {
             background: linear-gradient(135deg, #4CAF50, #45a049);
         }
@@ -394,6 +414,17 @@
             font-size: 0.9em;
         }
 
+        .demo-notice {
+            background: rgba(255, 165, 0, 0.2);
+            border: 2px solid #FFA500;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #FFE4B5;
+            text-align: center;
+            font-size: 0.9em;
+        }
+
         @media (max-width: 1024px) {
             .jukebox-main {
                 grid-template-columns: 1fr;
@@ -431,6 +462,11 @@
             <div class="tagline">The Search Continues - Music as Memory, Memory as Hope</div>
         </div>
 
+        <div class="demo-notice">
+            <strong>🚧 Demo Mode:</strong> Currently only "Mr Tooting Brown" has an audio file uploaded. 
+            Other tracks will be added as audio files are uploaded to the repository.
+        </div>
+
         <div class="jukebox-main">
             <div class="playlist-section">
                 <div class="section-header">
@@ -440,7 +476,7 @@
                 
                 <div class="track-list" id="trackList">
                     <!-- Original Recordings -->
-                    <div class="track-item" data-track="mr-tooting-brown" data-type="original" data-requires-payment="true">
+                    <div class="track-item" data-track="mr-tooting-brown" data-type="original" data-requires-payment="true" data-audio-available="true">
                         <div class="track-info">
                             <div class="track-title">Mr Tooting Brown</div>
                             <div class="track-meta">Hovercraft</div>
@@ -449,7 +485,7 @@
                         <span class="track-status original">ORIGINAL</span>
                     </div>
 
-                    <div class="track-item" data-track="new-pine-overcoat" data-type="original" data-requires-payment="true">
+                    <div class="track-item disabled" data-track="new-pine-overcoat" data-type="original" data-requires-payment="true" data-audio-available="false">
                         <div class="track-info">
                             <div class="track-title">New Pine Overcoat</div>
                             <div class="track-meta">Hovercraft</div>
@@ -458,7 +494,7 @@
                         <span class="track-status original">ORIGINAL</span>
                     </div>
 
-                    <div class="track-item" data-track="angel" data-type="original" data-requires-payment="true">
+                    <div class="track-item disabled" data-track="angel" data-type="original" data-requires-payment="true" data-audio-available="false">
                         <div class="track-info">
                             <div class="track-title">Angel</div>
                             <div class="track-meta">Hovercraft</div>
@@ -467,7 +503,7 @@
                         <span class="track-status original">ORIGINAL</span>
                     </div>
 
-                    <div class="track-item" data-track="superman" data-type="original" data-requires-payment="true">
+                    <div class="track-item disabled" data-track="superman" data-type="original" data-requires-payment="true" data-audio-available="false">
                         <div class="track-info">
                             <div class="track-title">Superman</div>
                             <div class="track-meta">Hovercraft</div>
@@ -477,7 +513,7 @@
                     </div>
 
                     <!-- AI Reconstructions -->
-                    <div class="track-item" data-track="from-rehab-refurb" data-type="ai" data-requires-payment="false">
+                    <div class="track-item disabled" data-track="from-rehab-refurb" data-type="ai" data-requires-payment="false" data-audio-available="false">
                         <div class="track-info">
                             <div class="track-title">From The Rehab To The Refurb</div>
                             <div class="track-meta">Hovercraft (AI Reconstruction)</div>
@@ -486,7 +522,7 @@
                         <span class="track-status ai-reconstruction">AI RECON</span>
                     </div>
 
-                    <div class="track-item" data-track="chilled-lamppost" data-type="ai" data-requires-payment="false">
+                    <div class="track-item disabled" data-track="chilled-lamppost" data-type="ai" data-requires-payment="false" data-audio-available="false">
                         <div class="track-info">
                             <div class="track-title">Chilled Out Lamppost Wanted</div>
                             <div class="track-meta">Hovercraft (AI Reconstruction)</div>
@@ -495,7 +531,7 @@
                         <span class="track-status ai-reconstruction">AI RECON</span>
                     </div>
 
-                    <div class="track-item" data-track="back-from-grave" data-type="ai" data-requires-payment="false">
+                    <div class="track-item disabled" data-track="back-from-grave" data-type="ai" data-requires-payment="false" data-audio-available="false">
                         <div class="track-info">
                             <div class="track-title">Back From The Grave</div>
                             <div class="track-meta">Hovercraft (AI Reconstruction)</div>
@@ -505,7 +541,7 @@
                     </div>
 
                     <!-- Influences -->
-                    <div class="track-item" data-track="cool-jerk" data-type="influence" data-requires-payment="false">
+                    <div class="track-item disabled" data-track="cool-jerk" data-type="influence" data-requires-payment="false" data-audio-available="false">
                         <div class="track-info">
                             <div class="track-title">Cool Jerk (Hovercraft Version)</div>
                             <div class="track-meta">Hovercraft</div>
@@ -514,7 +550,6 @@
                         <span class="track-status influence">INFLUENCE</span>
                     </div>
                 </div>
-
 
                 <div class="support-section">
                     <h4>💰 Support The Search</h4>
@@ -542,18 +577,18 @@
                 </div>
 
                 <div class="controls">
-                    <button class="control-btn" onclick="previousTrack()" title="Previous">⏮</button>
+                    <button class="control-btn" onclick="previousTrack()" title="Previous" disabled>⏮</button>
                     <button class="control-btn" onclick="togglePlay()" id="playBtn" title="Play/Pause">▶</button>
-                    <button class="control-btn" onclick="nextTrack()" title="Next">⏭</button>
-                    <button class="control-btn" onclick="toggleShuffle()" id="shuffleBtn" title="Shuffle">🔀</button>
+                    <button class="control-btn" onclick="nextTrack()" title="Next" disabled>⏭</button>
+                    <button class="control-btn" onclick="toggleShuffle()" id="shuffleBtn" title="Shuffle" disabled>🔀</button>
                 </div>
 
                 <audio id="audioPlayer" style="display: none;">
+                    <source src="" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
 
                 <div class="error-message" id="errorMessage" style="display: none;">
-                    Audio files not found. Please upload your music files to the 'audio' folder.
                 </div>
 
                 <div class="progress-container">
@@ -598,16 +633,12 @@
         let audioPlayer = null;
         let hasPaidAccess = false;
 
-        // Audio file paths - update these with your actual file locations
+        // Audio file URLs - using GitHub raw URLs for reliability
         const audioFiles = {
-            'mr-tooting-brown': './audio/mr-tooting-brown.mp3',
-            'new-pine-overcoat': './audio/new-pine-overcoat.mp3',
-            'angel': './audio/angel.mp3',
-            'superman': './audio/superman.mp3',
-            'from-rehab-refurb': './audio/from-rehab-refurb.mp3',
-            'chilled-lamppost': './audio/chilled-lamppost.mp3',
-            'back-from-grave': './audio/back-from-grave.mp3',
-            'cool-jerk': './audio/cool-jerk.mp3'
+            'mr-tooting-brown': 'https://raw.githubusercontent.com/davidmarsden/hovercraft-jukebox/main/audio/mr-tooting-brown.mp3'
+            // Add other tracks as you upload them:
+            // 'new-pine-overcoat': 'https://raw.githubusercontent.com/davidmarsden/hovercraft-jukebox/main/audio/new-pine-overcoat.mp3',
+            // etc.
         };
 
         function initializeApp() {
@@ -636,7 +667,14 @@
                 });
                 audioPlayer.addEventListener('error', (e) => {
                     console.error('Audio error:', e);
-                    showError('Could not load audio file. Please check the file path.');
+                    showError('Could not load audio file. File may be corrupted or unavailable.');
+                });
+                audioPlayer.addEventListener('loadstart', () => {
+                    console.log('Audio loading started...');
+                });
+                audioPlayer.addEventListener('canplay', () => {
+                    console.log('Audio can start playing');
+                    hideError();
                 });
 
                 // Set up track click handlers
@@ -656,11 +694,18 @@
         function setupTrackHandlers() {
             const trackItems = document.querySelectorAll('.track-item');
             trackItems.forEach(item => {
-                item.addEventListener('click', function() {
-                    const trackId = this.getAttribute('data-track');
-                    const requiresPayment = this.getAttribute('data-requires-payment') === 'true';
-                    selectTrack(trackId, requiresPayment);
-                });
+                const isDisabled = item.classList.contains('disabled');
+                if (!isDisabled) {
+                    item.addEventListener('click', function() {
+                        const trackId = this.getAttribute('data-track');
+                        const requiresPayment = this.getAttribute('data-requires-payment') === 'true';
+                        const audioAvailable = this.getAttribute('data-audio-available') === 'true';
+                        
+                        if (audioAvailable) {
+                            selectTrack(trackId, requiresPayment);
+                        }
+                    });
+                }
             });
         }
 
@@ -669,6 +714,12 @@
                 // Check if payment is required
                 if (requiresPayment && !hasPaidAccess) {
                     supportSearch();
+                    return;
+                }
+
+                // Check if audio file exists
+                if (!audioFiles[trackId]) {
+                    showError(`Audio file not available for ${trackId}`);
                     return;
                 }
 
@@ -713,20 +764,17 @@
                 currentTrack = trackId;
                 
                 // Load and play audio
-                if (audioFiles[trackId]) {
-                    audioPlayer.src = audioFiles[trackId];
-                    audioPlayer.load();
-                    
-                    // Try to play
-                    setTimeout(() => {
-                        audioPlayer.play().catch(e => {
-                            console.log('Autoplay prevented:', e.message);
-                            showError('Click the play button to start playback');
-                        });
-                    }, 100);
-                } else {
-                    showError(`Audio file not found for ${trackId}`);
-                }
+                console.log('Loading audio:', audioFiles[trackId]);
+                audioPlayer.src = audioFiles[trackId];
+                audioPlayer.load();
+                
+                // Try to play after a short delay
+                setTimeout(() => {
+                    audioPlayer.play().catch(e => {
+                        console.log('Autoplay prevented:', e.message);
+                        showError('Click the play button to start playback (autoplay prevented by browser)');
+                    });
+                }, 500);
                 
             } catch (error) {
                 console.error('Error selecting track:', error);
@@ -736,12 +784,8 @@
 
         function togglePlay() {
             if (!currentTrack) {
-                // Select first free track
-                const firstFreeTrack = document.querySelector('.track-item[data-requires-payment="false"]');
-                if (firstFreeTrack) {
-                    const trackId = firstFreeTrack.getAttribute('data-track');
-                    selectTrack(trackId, false);
-                }
+                // Select first available track
+                selectTrack('mr-tooting-brown', true);
                 return;
             }
 
@@ -791,13 +835,11 @@
         }
 
         function nextTrack() {
-            // Simple implementation - just stop for now
-            console.log('Next track functionality coming soon');
+            console.log('Next track - only one track available currently');
         }
 
         function previousTrack() {
-            // Simple implementation - just stop for now
-            console.log('Previous track functionality coming soon');
+            console.log('Previous track - only one track available currently');
         }
 
         function toggleShuffle() {
@@ -856,6 +898,11 @@
                     `;
                 }
                 
+                // Enable the original track if it wasn't playable before
+                if (currentTrack === 'mr-tooting-brown') {
+                    selectTrack('mr-tooting-brown', false);
+                }
+                
                 // Show success message
                 setTimeout(() => {
                     alert('🎵 Thank you! Original Hovercraft tracks are now unlocked.\n\nThe search continues...');
@@ -869,12 +916,19 @@
                 errorElement.textContent = message;
                 errorElement.style.display = 'block';
                 
-                // Hide error after 5 seconds
+                // Hide error after 8 seconds
                 setTimeout(() => {
                     errorElement.style.display = 'none';
-                }, 5000);
+                }, 8000);
             }
             console.error('Jukebox Error:', message);
+        }
+
+        function hideError() {
+            const errorElement = document.getElementById('errorMessage');
+            if (errorElement) {
+                errorElement.style.display = 'none';
+            }
         }
 
         // Keyboard shortcuts
@@ -927,19 +981,16 @@
             }
         });
 
-        // Debug function to check if everything loaded
-        function debugCheck() {
-            console.log('=== Jukebox Debug Info ===');
-            console.log('Audio player:', audioPlayer);
-            console.log('Current track:', currentTrack);
-            console.log('Is playing:', isPlaying);
-            console.log('Has paid access:', hasPaidAccess);
-            console.log('Audio files configured:', Object.keys(audioFiles));
-            console.log('Track elements found:', document.querySelectorAll('.track-item').length);
-        }
-
-        // Make debug function available globally
-        window.debugJukebox = debugCheck;
+        // Auto-select the available track on load
+        window.addEventListener('load', function() {
+            setTimeout(() => {
+                const availableTrack = document.querySelector('.track-item:not(.disabled)');
+                if (availableTrack) {
+                    availableTrack.style.borderLeftColor = '#2B5AA0';
+                    availableTrack.style.opacity = '0.9';
+                }
+            }, 1000);
+        });
     </script>
 </body>
 </html>
