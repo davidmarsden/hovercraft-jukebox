@@ -38,7 +38,7 @@
             background: rgba(26, 26, 26, 0.95);
             backdrop-filter: blur(10px);
             border-radius: 25px;
-            box-shadow: 0 25px 80px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
             border: 2px solid rgba(255,255,255,0.1);
         }
 
@@ -46,33 +46,8 @@
             text-align: center;
             margin-bottom: 40px;
             padding: 30px;
-            background: linear-gradient(135deg, #CC2936, #2B5AA0, #CC2936);
-            background-size: 200% 200%;
-            animation: headerGlow 4s ease-in-out infinite;
+            background: linear-gradient(135deg, #CC2936, #2B5AA0);
             border-radius: 20px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
-            animation: shimmer 3s linear infinite;
-        }
-
-        @keyframes headerGlow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        @keyframes shimmer {
-            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
-            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
         }
 
         .header h1 {
@@ -80,16 +55,12 @@
             font-weight: 900;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
             margin-bottom: 15px;
-            position: relative;
-            z-index: 2;
         }
 
         .tagline {
             font-family: 'Share Tech Mono', monospace;
             font-size: 1.2em;
             opacity: 0.95;
-            position: relative;
-            z-index: 2;
         }
 
         .jukebox-main {
@@ -101,11 +72,9 @@
 
         .playlist-section {
             background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(13, 13, 13, 0.9));
-            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             border: 1px solid rgba(255,255,255,0.1);
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .section-header {
@@ -135,24 +104,6 @@
         .track-list {
             max-height: 600px;
             overflow-y: auto;
-            scrollbar-width: thin;
-            scrollbar-color: #CC2936 rgba(26, 26, 26, 0.5);
-            padding-right: 10px;
-        }
-
-        .track-list::-webkit-scrollbar {
-            width: 12px;
-        }
-
-        .track-list::-webkit-scrollbar-track {
-            background: rgba(26, 26, 26, 0.5);
-            border-radius: 6px;
-        }
-
-        .track-list::-webkit-scrollbar-thumb {
-            background: linear-gradient(135deg, #CC2936, #2B5AA0);
-            border-radius: 6px;
-            border: 2px solid rgba(26, 26, 26, 0.5);
         }
 
         .track-item {
@@ -161,76 +112,32 @@
             padding: 20px;
             margin-bottom: 15px;
             background: linear-gradient(135deg, rgba(42, 42, 42, 0.8), rgba(30, 30, 30, 0.8));
-            backdrop-filter: blur(5px);
             border-radius: 15px;
             cursor: pointer;
-            transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.4s ease;
             border-left: 4px solid transparent;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .track-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(204, 41, 54, 0.1), rgba(43, 90, 160, 0.1));
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .track-item:hover::before {
-            opacity: 1;
         }
 
         .track-item:hover {
-            transform: translateX(10px) scale(1.02);
+            transform: translateX(10px);
             border-left-color: #2B5AA0;
-            box-shadow: 0 10px 30px rgba(43, 90, 160, 0.4), inset 0 1px 0 rgba(255,255,255,0.1);
+            box-shadow: 0 10px 30px rgba(43, 90, 160, 0.4);
         }
 
         .track-item.playing {
             border-left-color: #CC2936;
             background: linear-gradient(135deg, rgba(204, 41, 54, 0.3), rgba(43, 90, 160, 0.2));
-            animation: pulseTrack 2s ease-in-out infinite;
-        }
-
-        .track-item.playing::after {
-            content: '♪';
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #CC2936;
-            font-size: 1.5em;
-            animation: musicNote 1.5s ease-in-out infinite;
-        }
-
-        @keyframes pulseTrack {
-            0%, 100% { box-shadow: 0 5px 20px rgba(204, 41, 54, 0.3); }
-            50% { box-shadow: 0 8px 35px rgba(204, 41, 54, 0.6); }
-        }
-
-        @keyframes musicNote {
-            0%, 100% { transform: translateY(-50%) scale(1); opacity: 1; }
-            50% { transform: translateY(-60%) scale(1.2); opacity: 0.7; }
         }
 
         .track-info {
             flex: 1;
             color: white;
-            position: relative;
-            z-index: 2;
         }
 
         .track-title {
             font-weight: bold;
             font-size: 1.2em;
             margin-bottom: 8px;
-            line-height: 1.2;
         }
 
         .track-meta {
@@ -244,7 +151,6 @@
             font-size: 0.85em;
             opacity: 0.6;
             font-style: italic;
-            line-height: 1.3;
         }
 
         .track-status {
@@ -253,33 +159,25 @@
             font-size: 0.85em;
             font-weight: bold;
             margin-left: 15px;
-            position: relative;
-            z-index: 2;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .original { 
             background: linear-gradient(135deg, #2B5AA0, #1a4d80); 
             color: white; 
-            box-shadow: 0 4px 15px rgba(43, 90, 160, 0.3);
         }
         
         .ai-reconstruction { 
             background: linear-gradient(135deg, #CC2936, #a61e2a); 
             color: white; 
-            box-shadow: 0 4px 15px rgba(204, 41, 54, 0.3);
         }
         
         .influence { 
             background: linear-gradient(135deg, #666, #333); 
             color: white; 
-            box-shadow: 0 4px 15px rgba(102, 102, 102, 0.3);
         }
 
         .player-section {
             background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(13, 13, 13, 0.9));
-            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             border: 1px solid rgba(255,255,255,0.1);
@@ -305,36 +203,13 @@
             font-size: 4em;
             color: white;
             text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
-            position: relative;
-            overflow: hidden;
-            transition: all 0.4s ease;
-        }
-
-        .album-art::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: conic-gradient(transparent, rgba(255,255,255,0.1), transparent, rgba(255,255,255,0.1), transparent);
-            animation: none;
         }
 
         .album-art.playing {
-            animation: vinylSpin 3s linear infinite;
+            animation: spin 8s linear infinite;
         }
 
-        .album-art.playing::before {
-            animation: vinylShine 3s linear infinite;
-        }
-
-        @keyframes vinylSpin {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        @keyframes vinylShine {
+        @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
@@ -381,25 +256,18 @@
             color: white;
             font-size: 1.4em;
             cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 20px rgba(204, 41, 54, 0.3);
         }
 
         .control-btn:hover {
-            transform: scale(1.15) translateY(-3px);
-            box-shadow: 0 10px 30px rgba(204, 41, 54, 0.5);
-        }
-
-        .control-btn:active {
-            transform: scale(0.95);
+            transform: scale(1.15);
         }
 
         .control-btn.active {
             background: linear-gradient(135deg, #4CAF50, #45a049);
-            box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
 
         .progress-container {
@@ -413,23 +281,13 @@
             border-radius: 6px;
             overflow: hidden;
             cursor: pointer;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .progress {
             height: 100%;
-            background: linear-gradient(90deg, #CC2936, #2B5AA0, #CC2936);
-            background-size: 200% 100%;
-            animation: progressGlow 2s ease-in-out infinite;
+            background: linear-gradient(90deg, #CC2936, #2B5AA0);
             width: 0%;
             transition: width 0.1s ease;
-            border-radius: 6px;
-        }
-
-        @keyframes progressGlow {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
         }
 
         .time-display {
@@ -457,8 +315,6 @@
             border-radius: 4px;
             outline: none;
             -webkit-appearance: none;
-            backdrop-filter: blur(5px);
-            border: 1px solid rgba(255,255,255,0.1);
         }
 
         .volume-slider::-webkit-slider-thumb {
@@ -468,16 +324,10 @@
             background: linear-gradient(135deg, #CC2936, #2B5AA0);
             border-radius: 50%;
             cursor: pointer;
-            box-shadow: 0 4px 15px rgba(204, 41, 54, 0.4);
-        }
-
-        .audio-element {
-            display: none;
         }
 
         .support-section {
             background: linear-gradient(135deg, rgba(42, 77, 42, 0.8), rgba(26, 58, 26, 0.8));
-            backdrop-filter: blur(10px);
             border: 2px solid #4CAF50;
             border-radius: 15px;
             padding: 20px;
@@ -507,28 +357,20 @@
 
         .support-btn:hover {
             transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(76, 175, 80, 0.4);
         }
 
         .search-message {
             background: linear-gradient(135deg, rgba(42, 42, 42, 0.8), rgba(26, 26, 26, 0.8));
-            backdrop-filter: blur(10px);
             border-radius: 20px;
             padding: 30px;
             text-align: center;
             border: 2px dashed #CC2936;
-            box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
         }
 
         .search-message h3 {
             color: #CC2936;
             margin-bottom: 15px;
             font-size: 1.6em;
-        }
-
-        .search-message p {
-            line-height: 1.6;
-            margin-bottom: 10px;
         }
 
         .search-contact {
@@ -539,6 +381,17 @@
             background: rgba(204, 41, 54, 0.1);
             border-radius: 10px;
             border-left: 4px solid #CC2936;
+        }
+
+        .error-message {
+            background: rgba(204, 41, 54, 0.2);
+            border: 2px solid #CC2936;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 10px 0;
+            color: #ffcccc;
+            text-align: center;
+            font-size: 0.9em;
         }
 
         @media (max-width: 1024px) {
@@ -568,87 +421,10 @@
             .header h1 {
                 font-size: 2em;
             }
-            
-            .tagline {
-                font-size: 1em;
-            }
-            
-            .album-art {
-                width: 160px;
-                height: 160px;
-                font-size: 2.5em;
-            }
-            
-            .controls {
-                gap: 15px;
-            }
-            
-            .control-btn {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2em;
-            }
-        }
-
-        .netlify-badge {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 8px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-family: 'Share Tech Mono', monospace;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, #2B5AA0, #CC2936);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 9999;
-            transition: opacity 0.5s ease;
-        }
-
-        .loading-content {
-            text-align: center;
-            color: white;
-        }
-
-        .loading-ufo {
-            font-size: 4em;
-            margin-bottom: 20px;
-            animation: float 2s ease-in-out infinite;
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-
-        .loading-text {
-            font-family: 'Orbitron', monospace;
-            font-size: 1.2em;
-            font-weight: bold;
         }
     </style>
 </head>
 <body>
-    <div class="loading-overlay" id="loadingOverlay">
-        <div class="loading-content">
-            <div class="loading-ufo">🛸</div>
-            <div class="loading-text">Initializing Hovercraft Jukebox...</div>
-        </div>
-    </div>
-
     <div class="jukebox-container">
         <div class="header">
             <h1>🛸 HOVERCRAFT JUKEBOX</h1>
@@ -659,12 +435,86 @@
             <div class="playlist-section">
                 <div class="section-header">
                     <div class="section-title">The Lost Catalog</div>
-                    <div class="track-counter" id="trackCounter">8 tracks</div>
+                    <div class="track-counter">8 tracks</div>
                 </div>
                 
                 <div class="track-list" id="trackList">
-                    <!-- Tracks will be populated by JavaScript -->
+                    <!-- Original Recordings -->
+                    <div class="track-item" data-track="mr-tooting-brown" data-type="original" data-requires-payment="true">
+                        <div class="track-info">
+                            <div class="track-title">Mr Tooting Brown</div>
+                            <div class="track-meta">Hovercraft</div>
+                            <div class="track-description">The breakthrough demo that topped local charts in Grimsby</div>
+                        </div>
+                        <span class="track-status original">ORIGINAL</span>
+                    </div>
+
+                    <div class="track-item" data-track="new-pine-overcoat" data-type="original" data-requires-payment="true">
+                        <div class="track-info">
+                            <div class="track-title">New Pine Overcoat</div>
+                            <div class="track-meta">Hovercraft</div>
+                            <div class="track-description">The original demo that transformed into The Promised Land</div>
+                        </div>
+                        <span class="track-status original">ORIGINAL</span>
+                    </div>
+
+                    <div class="track-item" data-track="angel" data-type="original" data-requires-payment="true">
+                        <div class="track-info">
+                            <div class="track-title">Angel</div>
+                            <div class="track-meta">Hovercraft</div>
+                            <div class="track-description">Complex relationship dynamics with literary-quality wordplay</div>
+                        </div>
+                        <span class="track-status original">ORIGINAL</span>
+                    </div>
+
+                    <div class="track-item" data-track="superman" data-type="original" data-requires-payment="true">
+                        <div class="track-info">
+                            <div class="track-title">Superman</div>
+                            <div class="track-meta">Hovercraft</div>
+                            <div class="track-description">Exploring themes of identity and heroism</div>
+                        </div>
+                        <span class="track-status original">ORIGINAL</span>
+                    </div>
+
+                    <!-- AI Reconstructions -->
+                    <div class="track-item" data-track="from-rehab-refurb" data-type="ai" data-requires-payment="false">
+                        <div class="track-info">
+                            <div class="track-title">From The Rehab To The Refurb</div>
+                            <div class="track-meta">Hovercraft (AI Reconstruction)</div>
+                            <div class="track-description">Reconstructed using fragments, memories, and AI technology</div>
+                        </div>
+                        <span class="track-status ai-reconstruction">AI RECON</span>
+                    </div>
+
+                    <div class="track-item" data-track="chilled-lamppost" data-type="ai" data-requires-payment="false">
+                        <div class="track-info">
+                            <div class="track-title">Chilled Out Lamppost Wanted</div>
+                            <div class="track-meta">Hovercraft (AI Reconstruction)</div>
+                            <div class="track-description">Born from the original advert that started it all</div>
+                        </div>
+                        <span class="track-status ai-reconstruction">AI RECON</span>
+                    </div>
+
+                    <div class="track-item" data-track="back-from-grave" data-type="ai" data-requires-payment="false">
+                        <div class="track-info">
+                            <div class="track-title">Back From The Grave</div>
+                            <div class="track-meta">Hovercraft (AI Reconstruction)</div>
+                            <div class="track-description">Musical resurrection through technology</div>
+                        </div>
+                        <span class="track-status ai-reconstruction">AI RECON</span>
+                    </div>
+
+                    <!-- Influences -->
+                    <div class="track-item" data-track="cool-jerk" data-type="influence" data-requires-payment="false">
+                        <div class="track-info">
+                            <div class="track-title">Cool Jerk (Hovercraft Version)</div>
+                            <div class="track-meta">Hovercraft</div>
+                            <div class="track-description">Classic soul meets contemporary edge - our take on the original</div>
+                        </div>
+                        <span class="track-status influence">INFLUENCE</span>
+                    </div>
                 </div>
+
 
                 <div class="support-section">
                     <h4>💰 Support The Search</h4>
@@ -698,9 +548,13 @@
                     <button class="control-btn" onclick="toggleShuffle()" id="shuffleBtn" title="Shuffle">🔀</button>
                 </div>
 
-                <audio id="audioPlayer" class="audio-element">
+                <audio id="audioPlayer" style="display: none;">
                     Your browser does not support the audio element.
                 </audio>
+
+                <div class="error-message" id="errorMessage" style="display: none;">
+                    Audio files not found. Please upload your music files to the 'audio' folder.
+                </div>
 
                 <div class="progress-container">
                     <div class="progress-bar" onclick="seek(event)">
@@ -719,7 +573,7 @@
                 </div>
 
                 <div style="text-align: center; color: #666; font-size: 0.85em; margin-top: 15px;">
-                    🚀 Powered by Netlify
+                    🚀 Hosted on Netlify
                 </div>
             </div>
         </div>
@@ -736,79 +590,356 @@
         </div>
     </div>
 
-    <div class="netlify-badge">
-        Hosted on Netlify
-    </div>
-
     <script>
+        // Global variables
         let currentTrack = null;
         let isPlaying = false;
         let shuffle = false;
         let audioPlayer = null;
         let hasPaidAccess = false;
-        let currentIndex = 0;
 
-        // Track data - you can host these files on Netlify or link to external sources
-        const tracks = {
-            'mr-tooting-brown': {
-                title: 'Mr Tooting Brown',
-                artist: 'Hovercraft',
-                type: 'original',
-                description: 'The breakthrough demo that topped local charts in Grimsby',
-                requiresPayment: true,
-                audioUrl: 'https://hovercraftuk.bandcamp.com/track/mr-tooting-brown-2', // Replace with actual audio file
-                bandcampUrl: 'https://hovercraftuk.bandcamp.com/album/mr-tooting-brown'
-            },
-            'new-pine-overcoat': {
-                title: 'New Pine Overcoat',
-                artist: 'Hovercraft',
-                type: 'original',
-                description: 'The original demo that transformed into The Promised Land',
-                requiresPayment: true,
-                audioUrl: './audio/new-pine-overcoat.mp3',
-                bandcampUrl: 'https://hovercraftuk.bandcamp.com/album/from-the-cradle'
-            },
-            'angel': {
-                title: 'Angel',
-                artist: 'Hovercraft',
-                type: 'original',
-                description: 'Complex relationship dynamics with literary-quality wordplay',
-                requiresPayment: true,
-                audioUrl: './audio/angel.mp3'
-            },
-            'superman': {
-                title: 'Superman',
-                artist: 'Hovercraft',
-                type: 'original',
-                description: 'Exploring themes of identity and heroism',
-                requiresPayment: true,
-                audioUrl: './audio/superman.mp3',
-                bandcampUrl: 'https://hovercraftuk.bandcamp.com/album/superman'
-            },
-            'from-rehab-refurb': {
-                title: 'From The Rehab To The Refurb',
-                artist: 'Hovercraft (AI Reconstruction)',
-                type: 'ai',
-                description: 'Reconstructed using fragments, memories, and AI technology',
-                requiresPayment: false,
-                audioUrl: './audio/from-rehab-refurb.mp3',
-                bandcampUrl: 'https://hovercraftuk.bandcamp.com/album/from-the-rehab-to-the-refurb'
-            },
-            'chilled-lamppost': {
-                title: 'Chilled Out Lamppost Wanted',
-                artist: 'Hovercraft (AI Reconstruction)',
-                type: 'ai',
-                description: 'Born from the original advert that started it all',
-                requiresPayment: false,
-                audioUrl: './audio/chilled-lamppost.mp3',
-                bandcampUrl: 'https://hovercraftuk.bandcamp.com/album/chilled-out-lamppost-wanted'
-            },
-            'back-from-grave': {
-                title: 'Back From The Grave',
-                artist: 'Hovercraft (AI Reconstruction)',
-                type: 'ai',
-                description: 'Musical resurrection through technology',
-                requiresPayment: false,
-                audioUrl: './audio/back-from-grave.mp3',
-                bandcampUrl: 'https://hovercraftuk.bandcamp.com/album/back-from-the-grave'
-             
+        // Audio file paths - update these with your actual file locations
+        const audioFiles = {
+            'mr-tooting-brown': './audio/mr-tooting-brown.mp3',
+            'new-pine-overcoat': './audio/new-pine-overcoat.mp3',
+            'angel': './audio/angel.mp3',
+            'superman': './audio/superman.mp3',
+            'from-rehab-refurb': './audio/from-rehab-refurb.mp3',
+            'chilled-lamppost': './audio/chilled-lamppost.mp3',
+            'back-from-grave': './audio/back-from-grave.mp3',
+            'cool-jerk': './audio/cool-jerk.mp3'
+        };
+
+        function initializeApp() {
+            try {
+                console.log('Initializing Hovercraft Jukebox...');
+                
+                // Get audio player
+                audioPlayer = document.getElementById('audioPlayer');
+                if (!audioPlayer) {
+                    throw new Error('Audio player element not found');
+                }
+                
+                // Set up audio event listeners
+                audioPlayer.addEventListener('loadedmetadata', updateDuration);
+                audioPlayer.addEventListener('timeupdate', updateProgress);
+                audioPlayer.addEventListener('ended', nextTrack);
+                audioPlayer.addEventListener('play', () => {
+                    isPlaying = true;
+                    updatePlayButton();
+                    document.getElementById('albumArt').classList.add('playing');
+                });
+                audioPlayer.addEventListener('pause', () => {
+                    isPlaying = false;
+                    updatePlayButton();
+                    document.getElementById('albumArt').classList.remove('playing');
+                });
+                audioPlayer.addEventListener('error', (e) => {
+                    console.error('Audio error:', e);
+                    showError('Could not load audio file. Please check the file path.');
+                });
+
+                // Set up track click handlers
+                setupTrackHandlers();
+                
+                // Set initial volume
+                setVolume(75);
+                
+                console.log('Jukebox initialized successfully');
+                
+            } catch (error) {
+                console.error('Error initializing jukebox:', error);
+                showError('Failed to initialize jukebox: ' + error.message);
+            }
+        }
+
+        function setupTrackHandlers() {
+            const trackItems = document.querySelectorAll('.track-item');
+            trackItems.forEach(item => {
+                item.addEventListener('click', function() {
+                    const trackId = this.getAttribute('data-track');
+                    const requiresPayment = this.getAttribute('data-requires-payment') === 'true';
+                    selectTrack(trackId, requiresPayment);
+                });
+            });
+        }
+
+        function selectTrack(trackId, requiresPayment = false) {
+            try {
+                // Check if payment is required
+                if (requiresPayment && !hasPaidAccess) {
+                    supportSearch();
+                    return;
+                }
+
+                // Remove previous playing indicator
+                document.querySelectorAll('.track-item').forEach(item => {
+                    item.classList.remove('playing');
+                });
+
+                // Add playing indicator to current track
+                const trackElement = document.querySelector(`[data-track="${trackId}"]`);
+                if (trackElement) {
+                    trackElement.classList.add('playing');
+                    
+                    // Update UI with track info
+                    const title = trackElement.querySelector('.track-title').textContent;
+                    const artist = trackElement.querySelector('.track-meta').textContent;
+                    const description = trackElement.querySelector('.track-description').textContent;
+                    const type = trackElement.getAttribute('data-type');
+                    
+                    document.getElementById('currentTitle').textContent = title;
+                    document.getElementById('currentArtist').textContent = artist;
+                    document.getElementById('currentDescription').textContent = description;
+                    
+                    // Update album art based on type
+                    const albumArt = document.getElementById('albumArt');
+                    switch(type) {
+                        case 'original':
+                            albumArt.textContent = '🎸';
+                            albumArt.style.background = 'linear-gradient(135deg, #2B5AA0, #1a4d80)';
+                            break;
+                        case 'ai':
+                            albumArt.textContent = '🤖';
+                            albumArt.style.background = 'linear-gradient(135deg, #CC2936, #a61e2a)';
+                            break;
+                        case 'influence':
+                            albumArt.textContent = '🎵';
+                            albumArt.style.background = 'linear-gradient(135deg, #666, #333)';
+                            break;
+                    }
+                }
+
+                currentTrack = trackId;
+                
+                // Load and play audio
+                if (audioFiles[trackId]) {
+                    audioPlayer.src = audioFiles[trackId];
+                    audioPlayer.load();
+                    
+                    // Try to play
+                    setTimeout(() => {
+                        audioPlayer.play().catch(e => {
+                            console.log('Autoplay prevented:', e.message);
+                            showError('Click the play button to start playback');
+                        });
+                    }, 100);
+                } else {
+                    showError(`Audio file not found for ${trackId}`);
+                }
+                
+            } catch (error) {
+                console.error('Error selecting track:', error);
+                showError('Error loading track: ' + error.message);
+            }
+        }
+
+        function togglePlay() {
+            if (!currentTrack) {
+                // Select first free track
+                const firstFreeTrack = document.querySelector('.track-item[data-requires-payment="false"]');
+                if (firstFreeTrack) {
+                    const trackId = firstFreeTrack.getAttribute('data-track');
+                    selectTrack(trackId, false);
+                }
+                return;
+            }
+
+            if (isPlaying) {
+                audioPlayer.pause();
+            } else {
+                audioPlayer.play().catch(e => {
+                    console.error('Play failed:', e);
+                    showError('Playback failed: ' + e.message);
+                });
+            }
+        }
+
+        function updatePlayButton() {
+            const playBtn = document.getElementById('playBtn');
+            if (playBtn) {
+                playBtn.textContent = isPlaying ? '⏸' : '▶';
+            }
+        }
+
+        function updateDuration() {
+            const duration = audioPlayer.duration;
+            if (duration && !isNaN(duration)) {
+                document.getElementById('duration').textContent = formatTime(duration);
+            }
+        }
+
+        function updateProgress() {
+            const current = audioPlayer.currentTime;
+            const duration = audioPlayer.duration;
+            
+            if (current && !isNaN(current)) {
+                document.getElementById('currentTime').textContent = formatTime(current);
+            }
+            
+            if (duration && !isNaN(duration) && duration > 0) {
+                const progressPercent = (current / duration) * 100;
+                document.getElementById('progress').style.width = progressPercent + '%';
+            }
+        }
+
+        function formatTime(seconds) {
+            if (isNaN(seconds) || seconds === null) return '0:00';
+            const mins = Math.floor(seconds / 60);
+            const secs = Math.floor(seconds % 60);
+            return `${mins}:${secs.toString().padStart(2, '0')}`;
+        }
+
+        function nextTrack() {
+            // Simple implementation - just stop for now
+            console.log('Next track functionality coming soon');
+        }
+
+        function previousTrack() {
+            // Simple implementation - just stop for now
+            console.log('Previous track functionality coming soon');
+        }
+
+        function toggleShuffle() {
+            shuffle = !shuffle;
+            const shuffleBtn = document.getElementById('shuffleBtn');
+            if (shuffleBtn) {
+                if (shuffle) {
+                    shuffleBtn.classList.add('active');
+                } else {
+                    shuffleBtn.classList.remove('active');
+                }
+            }
+        }
+
+        function seek(event) {
+            if (!currentTrack || !audioPlayer.duration) return;
+            
+            const progressBar = event.currentTarget;
+            const clickPosition = event.offsetX / progressBar.offsetWidth;
+            audioPlayer.currentTime = clickPosition * audioPlayer.duration;
+        }
+
+        function setVolume(value) {
+            if (audioPlayer) {
+                audioPlayer.volume = value / 100;
+                document.getElementById('volumeDisplay').textContent = value + '%';
+            }
+        }
+
+        function supportSearch() {
+            const message = `💰 Support The Search for Charlie Pepper\n\n` +
+                          `Your £0.50 contribution helps fund:\n` +
+                          `• Private investigator fees\n` +
+                          `• Search advertising campaigns\n` +
+                          `• Website hosting costs\n` +
+                          `• AI reconstruction tools\n\n` +
+                          `Every play of our original tracks becomes part of the search effort.\n\n` +
+                          `In a real implementation, this would connect to Stripe for secure payments.\n` +
+                          `For this demo, we'll unlock the tracks to show the full experience.`;
+            
+            if (confirm(message + '\n\nClick OK to simulate payment and unlock original tracks.')) {
+                hasPaidAccess = true;
+                
+                // Update support section
+                const supportSection = document.querySelector('.support-section');
+                if (supportSection) {
+                    supportSection.innerHTML = `
+                        <h4 style="color: #4CAF50;">✅ Search Supporter</h4>
+                        <p style="color: #4CAF50; margin-bottom: 8px;">
+                            Thank you for supporting the search for Charlie Pepper!<br>
+                            <em>All original tracks are now unlocked.</em>
+                        </p>
+                        <div style="font-size: 0.85em; opacity: 0.8; color: #ccc;">
+                            Your contribution helps fund the ongoing search effort.
+                        </div>
+                    `;
+                }
+                
+                // Show success message
+                setTimeout(() => {
+                    alert('🎵 Thank you! Original Hovercraft tracks are now unlocked.\n\nThe search continues...');
+                }, 500);
+            }
+        }
+
+        function showError(message) {
+            const errorElement = document.getElementById('errorMessage');
+            if (errorElement) {
+                errorElement.textContent = message;
+                errorElement.style.display = 'block';
+                
+                // Hide error after 5 seconds
+                setTimeout(() => {
+                    errorElement.style.display = 'none';
+                }, 5000);
+            }
+            console.error('Jukebox Error:', message);
+        }
+
+        // Keyboard shortcuts
+        document.addEventListener('keydown', function(event) {
+            if (event.target.tagName.toLowerCase() === 'input') return;
+            
+            try {
+                switch(event.code) {
+                    case 'Space':
+                        event.preventDefault();
+                        togglePlay();
+                        break;
+                    case 'ArrowRight':
+                        nextTrack();
+                        break;
+                    case 'ArrowLeft':
+                        previousTrack();
+                        break;
+                    case 'KeyS':
+                        event.preventDefault();
+                        toggleShuffle();
+                        break;
+                }
+            } catch (error) {
+                console.error('Keyboard shortcut error:', error);
+            }
+        });
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('DOM loaded, initializing app...');
+            try {
+                initializeApp();
+            } catch (error) {
+                console.error('Failed to initialize app:', error);
+                showError('Failed to initialize jukebox. Please refresh the page.');
+            }
+        });
+
+        // Fallback initialization
+        window.addEventListener('load', function() {
+            // Double-check initialization
+            if (!audioPlayer) {
+                console.log('Fallback initialization...');
+                try {
+                    initializeApp();
+                } catch (error) {
+                    console.error('Fallback initialization failed:', error);
+                }
+            }
+        });
+
+        // Debug function to check if everything loaded
+        function debugCheck() {
+            console.log('=== Jukebox Debug Info ===');
+            console.log('Audio player:', audioPlayer);
+            console.log('Current track:', currentTrack);
+            console.log('Is playing:', isPlaying);
+            console.log('Has paid access:', hasPaidAccess);
+            console.log('Audio files configured:', Object.keys(audioFiles));
+            console.log('Track elements found:', document.querySelectorAll('.track-item').length);
+        }
+
+        // Make debug function available globally
+        window.debugJukebox = debugCheck;
+    </script>
+</body>
+</html>
