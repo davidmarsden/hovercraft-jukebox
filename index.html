@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hovercraft Jukebox - The Search Continues</title>
-    <meta name="description" content="Interactive music player featuring Hovercraft's lost catalog - original recordings and AI reconstructions in the search for Charlie Pepper">
     
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
@@ -127,17 +126,12 @@
         .track-item.playing {
             border-left-color: #CC2936;
             background: linear-gradient(135deg, rgba(204, 41, 54, 0.3), rgba(43, 90, 160, 0.2));
+            animation: pulse 2s ease-in-out infinite;
         }
 
-        .track-item.disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .track-item.disabled:hover {
-            transform: none;
-            border-left-color: transparent;
-            box-shadow: none;
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(204, 41, 54, 0.3); }
+            50% { box-shadow: 0 15px 40px rgba(204, 41, 54, 0.6); }
         }
 
         .track-info {
@@ -176,16 +170,6 @@
             background: linear-gradient(135deg, #2B5AA0, #1a4d80); 
             color: white; 
         }
-        
-        .ai-reconstruction { 
-            background: linear-gradient(135deg, #CC2936, #a61e2a); 
-            color: white; 
-        }
-        
-        .influence { 
-            background: linear-gradient(135deg, #666, #333); 
-            color: white; 
-        }
 
         .player-section {
             background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(13, 13, 13, 0.9));
@@ -205,7 +189,7 @@
         .album-art {
             width: 240px;
             height: 240px;
-            background: linear-gradient(135deg, #CC2936, #2B5AA0);
+            background: linear-gradient(135deg, #2B5AA0, #1a4d80);
             border-radius: 20px;
             margin: 0 auto 20px;
             display: flex;
@@ -275,19 +259,6 @@
 
         .control-btn:hover {
             transform: scale(1.15);
-        }
-
-        .control-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .control-btn:disabled:hover {
-            transform: none;
-        }
-
-        .control-btn.active {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
         }
 
         .progress-container {
@@ -403,24 +374,13 @@
             border-left: 4px solid #CC2936;
         }
 
-        .error-message {
-            background: rgba(204, 41, 54, 0.2);
-            border: 2px solid #CC2936;
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4CAF50;
             border-radius: 10px;
             padding: 15px;
             margin: 10px 0;
-            color: #ffcccc;
-            text-align: center;
-            font-size: 0.9em;
-        }
-
-        .demo-notice {
-            background: rgba(255, 165, 0, 0.2);
-            border: 2px solid #FFA500;
-            border-radius: 10px;
-            padding: 15px;
-            margin: 20px 0;
-            color: #FFE4B5;
+            color: #c8e6c9;
             text-align: center;
             font-size: 0.9em;
         }
@@ -462,92 +422,21 @@
             <div class="tagline">The Search Continues - Music as Memory, Memory as Hope</div>
         </div>
 
-        <div class="demo-notice">
-            <strong>🚧 Demo Mode:</strong> Currently only "Mr Tooting Brown" has an audio file uploaded. 
-            Other tracks will be added as audio files are uploaded to the repository.
-        </div>
-
         <div class="jukebox-main">
             <div class="playlist-section">
                 <div class="section-header">
                     <div class="section-title">The Lost Catalog</div>
-                    <div class="track-counter">8 tracks</div>
+                    <div class="track-counter">1 track available</div>
                 </div>
                 
                 <div class="track-list" id="trackList">
-                    <!-- Original Recordings -->
-                    <div class="track-item" data-track="mr-tooting-brown" data-type="original" data-requires-payment="true" data-audio-available="true">
+                    <div class="track-item" data-track="mr-tooting-brown">
                         <div class="track-info">
                             <div class="track-title">Mr Tooting Brown</div>
-                            <div class="track-meta">Hovercraft</div>
+                            <div class="track-meta">Hovercraft • October 1995</div>
                             <div class="track-description">The breakthrough demo that topped local charts in Grimsby</div>
                         </div>
                         <span class="track-status original">ORIGINAL</span>
-                    </div>
-
-                    <div class="track-item disabled" data-track="new-pine-overcoat" data-type="original" data-requires-payment="true" data-audio-available="false">
-                        <div class="track-info">
-                            <div class="track-title">New Pine Overcoat</div>
-                            <div class="track-meta">Hovercraft</div>
-                            <div class="track-description">The original demo that transformed into The Promised Land</div>
-                        </div>
-                        <span class="track-status original">ORIGINAL</span>
-                    </div>
-
-                    <div class="track-item disabled" data-track="angel" data-type="original" data-requires-payment="true" data-audio-available="false">
-                        <div class="track-info">
-                            <div class="track-title">Angel</div>
-                            <div class="track-meta">Hovercraft</div>
-                            <div class="track-description">Complex relationship dynamics with literary-quality wordplay</div>
-                        </div>
-                        <span class="track-status original">ORIGINAL</span>
-                    </div>
-
-                    <div class="track-item disabled" data-track="superman" data-type="original" data-requires-payment="true" data-audio-available="false">
-                        <div class="track-info">
-                            <div class="track-title">Superman</div>
-                            <div class="track-meta">Hovercraft</div>
-                            <div class="track-description">Exploring themes of identity and heroism</div>
-                        </div>
-                        <span class="track-status original">ORIGINAL</span>
-                    </div>
-
-                    <!-- AI Reconstructions -->
-                    <div class="track-item disabled" data-track="from-rehab-refurb" data-type="ai" data-requires-payment="false" data-audio-available="false">
-                        <div class="track-info">
-                            <div class="track-title">From The Rehab To The Refurb</div>
-                            <div class="track-meta">Hovercraft (AI Reconstruction)</div>
-                            <div class="track-description">Reconstructed using fragments, memories, and AI technology</div>
-                        </div>
-                        <span class="track-status ai-reconstruction">AI RECON</span>
-                    </div>
-
-                    <div class="track-item disabled" data-track="chilled-lamppost" data-type="ai" data-requires-payment="false" data-audio-available="false">
-                        <div class="track-info">
-                            <div class="track-title">Chilled Out Lamppost Wanted</div>
-                            <div class="track-meta">Hovercraft (AI Reconstruction)</div>
-                            <div class="track-description">Born from the original advert that started it all</div>
-                        </div>
-                        <span class="track-status ai-reconstruction">AI RECON</span>
-                    </div>
-
-                    <div class="track-item disabled" data-track="back-from-grave" data-type="ai" data-requires-payment="false" data-audio-available="false">
-                        <div class="track-info">
-                            <div class="track-title">Back From The Grave</div>
-                            <div class="track-meta">Hovercraft (AI Reconstruction)</div>
-                            <div class="track-description">Musical resurrection through technology</div>
-                        </div>
-                        <span class="track-status ai-reconstruction">AI RECON</span>
-                    </div>
-
-                    <!-- Influences -->
-                    <div class="track-item disabled" data-track="cool-jerk" data-type="influence" data-requires-payment="false" data-audio-available="false">
-                        <div class="track-info">
-                            <div class="track-title">Cool Jerk (Hovercraft Version)</div>
-                            <div class="track-meta">Hovercraft</div>
-                            <div class="track-description">Classic soul meets contemporary edge - our take on the original</div>
-                        </div>
-                        <span class="track-status influence">INFLUENCE</span>
                     </div>
                 </div>
 
@@ -561,34 +450,33 @@
                         £0.50 to unlock Hovercraft originals
                     </button>
                     <div style="margin-top: 12px; font-size: 0.85em; opacity: 0.7; color: #ccc;">
-                        AI reconstructions are always free to play
+                        Click the track above to get started!
                     </div>
                 </div>
             </div>
 
             <div class="player-section">
                 <div class="now-playing">
-                    <div class="album-art" id="albumArt">🛸</div>
+                    <div class="album-art" id="albumArt">🎸</div>
                     <div class="track-details">
-                        <h3 id="currentTitle">Select a track to begin</h3>
-                        <div class="artist" id="currentArtist">Hovercraft • 1995-1996 • The Search Continues</div>
-                        <div class="description" id="currentDescription">Choose a song from the lost catalog</div>
+                        <h3 id="currentTitle">Mr Tooting Brown</h3>
+                        <div class="artist" id="currentArtist">Hovercraft</div>
+                        <div class="description" id="currentDescription">The breakthrough demo that topped local charts in Grimsby</div>
                     </div>
                 </div>
 
                 <div class="controls">
-                    <button class="control-btn" onclick="previousTrack()" title="Previous" disabled>⏮</button>
                     <button class="control-btn" onclick="togglePlay()" id="playBtn" title="Play/Pause">▶</button>
-                    <button class="control-btn" onclick="nextTrack()" title="Next" disabled>⏭</button>
-                    <button class="control-btn" onclick="toggleShuffle()" id="shuffleBtn" title="Shuffle" disabled>🔀</button>
                 </div>
 
                 <audio id="audioPlayer" style="display: none;">
-                    <source src="" type="audio/mpeg">
+                    <source src="audio/mr-tooting-brown.mp3" type="audio/mpeg">
+                    <source src="./audio/mr-tooting-brown.mp3" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
 
-                <div class="error-message" id="errorMessage" style="display: none;">
+                <div class="success-message" id="successMessage" style="display: none;">
+                    ✅ Audio loaded successfully! Click play to hear Charlie Pepper's breakthrough demo.
                 </div>
 
                 <div class="progress-container">
@@ -608,7 +496,7 @@
                 </div>
 
                 <div style="text-align: center; color: #666; font-size: 0.85em; margin-top: 15px;">
-                    🚀 Hosted on Netlify
+                    🚀 Files hosted directly on Netlify
                 </div>
             </div>
         </div>
@@ -626,166 +514,53 @@
     </div>
 
     <script>
-        // Global variables
-        let currentTrack = null;
         let isPlaying = false;
-        let shuffle = false;
         let audioPlayer = null;
         let hasPaidAccess = false;
 
-        // Audio file URLs - using GitHub raw URLs for reliability
-        const audioFiles = {
-            'mr-tooting-brown': 'https://raw.githubusercontent.com/davidmarsden/hovercraft-jukebox/main/audio/mr-tooting-brown.mp3'
-            // Add other tracks as you upload them:
-            // 'new-pine-overcoat': 'https://raw.githubusercontent.com/davidmarsden/hovercraft-jukebox/main/audio/new-pine-overcoat.mp3',
-            // etc.
-        };
-
         function initializeApp() {
-            try {
-                console.log('Initializing Hovercraft Jukebox...');
-                
-                // Get audio player
-                audioPlayer = document.getElementById('audioPlayer');
-                if (!audioPlayer) {
-                    throw new Error('Audio player element not found');
-                }
-                
-                // Set up audio event listeners
-                audioPlayer.addEventListener('loadedmetadata', updateDuration);
-                audioPlayer.addEventListener('timeupdate', updateProgress);
-                audioPlayer.addEventListener('ended', nextTrack);
-                audioPlayer.addEventListener('play', () => {
-                    isPlaying = true;
-                    updatePlayButton();
-                    document.getElementById('albumArt').classList.add('playing');
-                });
-                audioPlayer.addEventListener('pause', () => {
-                    isPlaying = false;
-                    updatePlayButton();
-                    document.getElementById('albumArt').classList.remove('playing');
-                });
-                audioPlayer.addEventListener('error', (e) => {
-                    console.error('Audio error:', e);
-                    showError('Could not load audio file. File may be corrupted or unavailable.');
-                });
-                audioPlayer.addEventListener('loadstart', () => {
-                    console.log('Audio loading started...');
-                });
-                audioPlayer.addEventListener('canplay', () => {
-                    console.log('Audio can start playing');
-                    hideError();
-                });
+            audioPlayer = document.getElementById('audioPlayer');
+            
+            // Set up audio event listeners
+            audioPlayer.addEventListener('loadedmetadata', updateDuration);
+            audioPlayer.addEventListener('timeupdate', updateProgress);
+            audioPlayer.addEventListener('canplaythrough', function() {
+                console.log('✅ Audio ready to play!');
+                document.getElementById('successMessage').style.display = 'block';
+            });
+            audioPlayer.addEventListener('play', function() {
+                isPlaying = true;
+                updatePlayButton();
+                document.getElementById('albumArt').classList.add('playing');
+                document.querySelector('.track-item').classList.add('playing');
+            });
+            audioPlayer.addEventListener('pause', function() {
+                isPlaying = false;
+                updatePlayButton();
+                document.getElementById('albumArt').classList.remove('playing');
+                document.querySelector('.track-item').classList.remove('playing');
+            });
+            audioPlayer.addEventListener('error', function(e) {
+                console.error('Audio error:', e);
+                alert('Could not load audio file. Please check that mr-tooting-brown.mp3 is uploaded to the audio folder.');
+            });
 
-                // Set up track click handlers
-                setupTrackHandlers();
-                
-                // Set initial volume
-                setVolume(75);
-                
-                console.log('Jukebox initialized successfully');
-                
-            } catch (error) {
-                console.error('Error initializing jukebox:', error);
-                showError('Failed to initialize jukebox: ' + error.message);
-            }
-        }
-
-        function setupTrackHandlers() {
-            const trackItems = document.querySelectorAll('.track-item');
-            trackItems.forEach(item => {
-                const isDisabled = item.classList.contains('disabled');
-                if (!isDisabled) {
-                    item.addEventListener('click', function() {
-                        const trackId = this.getAttribute('data-track');
-                        const requiresPayment = this.getAttribute('data-requires-payment') === 'true';
-                        const audioAvailable = this.getAttribute('data-audio-available') === 'true';
-                        
-                        if (audioAvailable) {
-                            selectTrack(trackId, requiresPayment);
-                        }
-                    });
+            // Set up track click handler
+            document.querySelector('.track-item').addEventListener('click', function() {
+                if (!hasPaidAccess) {
+                    supportSearch();
+                } else {
+                    togglePlay();
                 }
             });
-        }
-
-        function selectTrack(trackId, requiresPayment = false) {
-            try {
-                // Check if payment is required
-                if (requiresPayment && !hasPaidAccess) {
-                    supportSearch();
-                    return;
-                }
-
-                // Check if audio file exists
-                if (!audioFiles[trackId]) {
-                    showError(`Audio file not available for ${trackId}`);
-                    return;
-                }
-
-                // Remove previous playing indicator
-                document.querySelectorAll('.track-item').forEach(item => {
-                    item.classList.remove('playing');
-                });
-
-                // Add playing indicator to current track
-                const trackElement = document.querySelector(`[data-track="${trackId}"]`);
-                if (trackElement) {
-                    trackElement.classList.add('playing');
-                    
-                    // Update UI with track info
-                    const title = trackElement.querySelector('.track-title').textContent;
-                    const artist = trackElement.querySelector('.track-meta').textContent;
-                    const description = trackElement.querySelector('.track-description').textContent;
-                    const type = trackElement.getAttribute('data-type');
-                    
-                    document.getElementById('currentTitle').textContent = title;
-                    document.getElementById('currentArtist').textContent = artist;
-                    document.getElementById('currentDescription').textContent = description;
-                    
-                    // Update album art based on type
-                    const albumArt = document.getElementById('albumArt');
-                    switch(type) {
-                        case 'original':
-                            albumArt.textContent = '🎸';
-                            albumArt.style.background = 'linear-gradient(135deg, #2B5AA0, #1a4d80)';
-                            break;
-                        case 'ai':
-                            albumArt.textContent = '🤖';
-                            albumArt.style.background = 'linear-gradient(135deg, #CC2936, #a61e2a)';
-                            break;
-                        case 'influence':
-                            albumArt.textContent = '🎵';
-                            albumArt.style.background = 'linear-gradient(135deg, #666, #333)';
-                            break;
-                    }
-                }
-
-                currentTrack = trackId;
-                
-                // Load and play audio
-                console.log('Loading audio:', audioFiles[trackId]);
-                audioPlayer.src = audioFiles[trackId];
-                audioPlayer.load();
-                
-                // Try to play after a short delay
-                setTimeout(() => {
-                    audioPlayer.play().catch(e => {
-                        console.log('Autoplay prevented:', e.message);
-                        showError('Click the play button to start playback (autoplay prevented by browser)');
-                    });
-                }, 500);
-                
-            } catch (error) {
-                console.error('Error selecting track:', error);
-                showError('Error loading track: ' + error.message);
-            }
+            
+            // Set initial volume
+            setVolume(75);
         }
 
         function togglePlay() {
-            if (!currentTrack) {
-                // Select first available track
-                selectTrack('mr-tooting-brown', true);
+            if (!hasPaidAccess) {
+                supportSearch();
                 return;
             }
 
@@ -794,16 +569,14 @@
             } else {
                 audioPlayer.play().catch(e => {
                     console.error('Play failed:', e);
-                    showError('Playback failed: ' + e.message);
+                    alert('Playback failed. Make sure the audio file is properly uploaded.');
                 });
             }
         }
 
         function updatePlayButton() {
             const playBtn = document.getElementById('playBtn');
-            if (playBtn) {
-                playBtn.textContent = isPlaying ? '⏸' : '▶';
-            }
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
         }
 
         function updateDuration() {
@@ -828,35 +601,14 @@
         }
 
         function formatTime(seconds) {
-            if (isNaN(seconds) || seconds === null) return '0:00';
+            if (isNaN(seconds)) return '0:00';
             const mins = Math.floor(seconds / 60);
             const secs = Math.floor(seconds % 60);
             return `${mins}:${secs.toString().padStart(2, '0')}`;
         }
 
-        function nextTrack() {
-            console.log('Next track - only one track available currently');
-        }
-
-        function previousTrack() {
-            console.log('Previous track - only one track available currently');
-        }
-
-        function toggleShuffle() {
-            shuffle = !shuffle;
-            const shuffleBtn = document.getElementById('shuffleBtn');
-            if (shuffleBtn) {
-                if (shuffle) {
-                    shuffleBtn.classList.add('active');
-                } else {
-                    shuffleBtn.classList.remove('active');
-                }
-            }
-        }
-
         function seek(event) {
-            if (!currentTrack || !audioPlayer.duration) return;
-            
+            if (!audioPlayer.duration) return;
             const progressBar = event.currentTarget;
             const clickPosition = event.offsetX / progressBar.offsetWidth;
             audioPlayer.currentTime = clickPosition * audioPlayer.duration;
@@ -877,120 +629,33 @@
                           `• Website hosting costs\n` +
                           `• AI reconstruction tools\n\n` +
                           `Every play of our original tracks becomes part of the search effort.\n\n` +
-                          `In a real implementation, this would connect to Stripe for secure payments.\n` +
-                          `For this demo, we'll unlock the tracks to show the full experience.`;
+                          `For this demo, we'll unlock the track to show the full experience.`;
             
-            if (confirm(message + '\n\nClick OK to simulate payment and unlock original tracks.')) {
+            if (confirm(message + '\n\nClick OK to unlock and play Mr Tooting Brown.')) {
                 hasPaidAccess = true;
                 
                 // Update support section
                 const supportSection = document.querySelector('.support-section');
-                if (supportSection) {
-                    supportSection.innerHTML = `
-                        <h4 style="color: #4CAF50;">✅ Search Supporter</h4>
-                        <p style="color: #4CAF50; margin-bottom: 8px;">
-                            Thank you for supporting the search for Charlie Pepper!<br>
-                            <em>All original tracks are now unlocked.</em>
-                        </p>
-                        <div style="font-size: 0.85em; opacity: 0.8; color: #ccc;">
-                            Your contribution helps fund the ongoing search effort.
-                        </div>
-                    `;
-                }
+                supportSection.innerHTML = `
+                    <h4 style="color: #4CAF50;">✅ Search Supporter</h4>
+                    <p style="color: #4CAF50; margin-bottom: 8px;">
+                        Thank you for supporting the search for Charlie Pepper!<br>
+                        <em>Mr Tooting Brown is now unlocked.</em>
+                    </p>
+                    <div style="font-size: 0.85em; opacity: 0.8; color: #ccc;">
+                        Your contribution helps fund the ongoing search effort.
+                    </div>
+                `;
                 
-                // Enable the original track if it wasn't playable before
-                if (currentTrack === 'mr-tooting-brown') {
-                    selectTrack('mr-tooting-brown', false);
-                }
-                
-                // Show success message
+                // Auto-play
                 setTimeout(() => {
-                    alert('🎵 Thank you! Original Hovercraft tracks are now unlocked.\n\nThe search continues...');
+                    togglePlay();
                 }, 500);
             }
         }
 
-        function showError(message) {
-            const errorElement = document.getElementById('errorMessage');
-            if (errorElement) {
-                errorElement.textContent = message;
-                errorElement.style.display = 'block';
-                
-                // Hide error after 8 seconds
-                setTimeout(() => {
-                    errorElement.style.display = 'none';
-                }, 8000);
-            }
-            console.error('Jukebox Error:', message);
-        }
-
-        function hideError() {
-            const errorElement = document.getElementById('errorMessage');
-            if (errorElement) {
-                errorElement.style.display = 'none';
-            }
-        }
-
-        // Keyboard shortcuts
-        document.addEventListener('keydown', function(event) {
-            if (event.target.tagName.toLowerCase() === 'input') return;
-            
-            try {
-                switch(event.code) {
-                    case 'Space':
-                        event.preventDefault();
-                        togglePlay();
-                        break;
-                    case 'ArrowRight':
-                        nextTrack();
-                        break;
-                    case 'ArrowLeft':
-                        previousTrack();
-                        break;
-                    case 'KeyS':
-                        event.preventDefault();
-                        toggleShuffle();
-                        break;
-                }
-            } catch (error) {
-                console.error('Keyboard shortcut error:', error);
-            }
-        });
-
         // Initialize when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('DOM loaded, initializing app...');
-            try {
-                initializeApp();
-            } catch (error) {
-                console.error('Failed to initialize app:', error);
-                showError('Failed to initialize jukebox. Please refresh the page.');
-            }
-        });
-
-        // Fallback initialization
-        window.addEventListener('load', function() {
-            // Double-check initialization
-            if (!audioPlayer) {
-                console.log('Fallback initialization...');
-                try {
-                    initializeApp();
-                } catch (error) {
-                    console.error('Fallback initialization failed:', error);
-                }
-            }
-        });
-
-        // Auto-select the available track on load
-        window.addEventListener('load', function() {
-            setTimeout(() => {
-                const availableTrack = document.querySelector('.track-item:not(.disabled)');
-                if (availableTrack) {
-                    availableTrack.style.borderLeftColor = '#2B5AA0';
-                    availableTrack.style.opacity = '0.9';
-                }
-            }, 1000);
-        });
+        document.addEventListener('DOMContentLoaded', initializeApp);
     </script>
 </body>
 </html>
