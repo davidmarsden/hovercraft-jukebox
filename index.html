@@ -3,321 +3,621 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hovercraft Jukebox - Audio Diagnostic</title>
+    <title>Hovercraft Jukebox - The Search Continues</title>
     
     <style>
-        body {
-            background: linear-gradient(135deg, #2B5AA0, #CC2936, #1a1a1a);
-            color: white;
-            font-family: 'Courier New', monospace;
-            padding: 20px;
-            line-height: 1.6;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&display=swap');
         
-        .diagnostic-container {
-            max-width: 800px;
-            margin: 0 auto;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: linear-gradient(135deg, #2B5AA0, #CC2936, #1a1a1a, #2B5AA0);
+            background-size: 400% 400%;
+            animation: gradientFlow 20s ease infinite;
+            min-height: 100vh;
+            font-family: 'Orbitron', monospace;
+            overflow-x: hidden;
+            color: white;
+        }
+
+        @keyframes gradientFlow {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .jukebox-container {
+            max-width: 1400px;
+            margin: 20px auto;
+            padding: 20px;
             background: rgba(26, 26, 26, 0.95);
-            padding: 30px;
-            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            border-radius: 25px;
+            box-shadow: 0 25px 80px rgba(0,0,0,0.6);
             border: 2px solid rgba(255,255,255,0.1);
         }
-        
+
         .header {
             text-align: center;
-            margin-bottom: 30px;
-            padding: 20px;
+            margin-bottom: 40px;
+            padding: 30px;
             background: linear-gradient(135deg, #CC2936, #2B5AA0);
-            border-radius: 10px;
+            border-radius: 20px;
         }
-        
-        .test-section {
-            background: rgba(30, 30, 30, 0.8);
+
+        .header h1 {
+            font-size: 3em;
+            font-weight: 900;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+            margin-bottom: 15px;
+        }
+
+        .tagline {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        .jukebox-main {
+            display: grid;
+            grid-template-columns: 1fr 450px;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .playlist-section {
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(13, 13, 13, 0.9));
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #CC2936;
+        }
+
+        .section-title {
+            color: #CC2936;
+            font-size: 1.6em;
+            font-weight: bold;
+        }
+
+        .track-counter {
+            background: #CC2936;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+
+        .track-list {
+            max-height: 600px;
+            overflow-y: auto;
+        }
+
+        .track-item {
+            display: flex;
+            align-items: center;
             padding: 20px;
-            margin: 20px 0;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, rgba(42, 42, 42, 0.8), rgba(30, 30, 30, 0.8));
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            border-left: 4px solid transparent;
+        }
+
+        .track-item:hover {
+            transform: translateX(10px);
+            border-left-color: #2B5AA0;
+            box-shadow: 0 10px 30px rgba(43, 90, 160, 0.4);
+        }
+
+        .track-item.playing {
+            border-left-color: #CC2936;
+            background: linear-gradient(135deg, rgba(204, 41, 54, 0.3), rgba(43, 90, 160, 0.2));
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 10px 30px rgba(204, 41, 54, 0.3); }
+            50% { box-shadow: 0 15px 40px rgba(204, 41, 54, 0.6); }
+        }
+
+        .track-info {
+            flex: 1;
+            color: white;
+        }
+
+        .track-title {
+            font-weight: bold;
+            font-size: 1.2em;
+            margin-bottom: 8px;
+        }
+
+        .track-meta {
+            font-size: 0.95em;
+            opacity: 0.8;
+            font-family: 'Share Tech Mono', monospace;
+            margin-bottom: 5px;
+        }
+
+        .track-description {
+            font-size: 0.85em;
+            opacity: 0.6;
+            font-style: italic;
+        }
+
+        .track-status {
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-left: 15px;
+        }
+
+        .original { 
+            background: linear-gradient(135deg, #2B5AA0, #1a4d80); 
+            color: white; 
+        }
+
+        .player-section {
+            background: linear-gradient(145deg, rgba(30, 30, 30, 0.9), rgba(13, 13, 13, 0.9));
+            border-radius: 20px;
+            padding: 30px;
+            border: 1px solid rgba(255,255,255,0.1);
+            position: sticky;
+            top: 20px;
+            height: fit-content;
+        }
+
+        .now-playing {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .album-art {
+            width: 240px;
+            height: 240px;
+            background: linear-gradient(135deg, #2B5AA0, #1a4d80);
+            border-radius: 20px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4em;
+            color: white;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.7);
+        }
+
+        .album-art.playing {
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .track-details {
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .track-details h3 {
+            font-size: 1.4em;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .track-details .artist {
+            opacity: 0.8;
+            font-family: 'Share Tech Mono', monospace;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .track-details .description {
+            opacity: 0.6;
+            font-size: 0.9em;
+            font-style: italic;
+            text-align: center;
+            line-height: 1.4;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+
+        .control-btn {
+            width: 60px;
+            height: 60px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #CC2936, #2B5AA0);
+            color: white;
+            font-size: 1.4em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .control-btn:hover {
+            transform: scale(1.15);
+        }
+
+        .progress-container {
+            margin: 25px 0;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 12px;
+            background: rgba(51, 51, 51, 0.6);
+            border-radius: 6px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #CC2936, #2B5AA0);
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            color: #ccc;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1em;
+            margin-top: 8px;
+            font-weight: bold;
+        }
+
+        .volume-control {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+            margin-bottom: 25px;
+        }
+
+        .volume-slider {
+            flex: 1;
+            height: 8px;
+            background: rgba(51, 51, 51, 0.6);
+            border-radius: 4px;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .volume-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            background: linear-gradient(135deg, #CC2936, #2B5AA0);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        .support-section {
+            background: linear-gradient(135deg, rgba(42, 77, 42, 0.8), rgba(26, 58, 26, 0.8));
+            border: 2px solid #4CAF50;
+            border-radius: 15px;
+            padding: 20px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .support-section h4 {
+            color: #4CAF50;
+            margin-bottom: 12px;
+            font-size: 1.2em;
+        }
+
+        .support-btn {
+            background: linear-gradient(135deg, #4CAF50, #45a049);
+            color: white;
+            border: none;
+            padding: 15px 25px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 1.1em;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .support-btn:hover {
+            transform: translateY(-3px);
+        }
+
+        .search-message {
+            background: linear-gradient(135deg, rgba(42, 42, 42, 0.8), rgba(26, 26, 26, 0.8));
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            border: 2px dashed #CC2936;
+        }
+
+        .search-message h3 {
+            color: #CC2936;
+            margin-bottom: 15px;
+            font-size: 1.6em;
+        }
+
+        .search-contact {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1em;
+            margin-top: 15px;
+            padding: 15px;
+            background: rgba(204, 41, 54, 0.1);
             border-radius: 10px;
             border-left: 4px solid #CC2936;
         }
-        
-        .audio-player {
-            width: 100%;
-            margin: 15px 0;
-            background: #333;
-            border-radius: 8px;
-        }
-        
-        .test-button {
-            background: linear-gradient(135deg, #2B5AA0, #1a4d80);
-            color: white;
-            border: none;
-            padding: 12px 20px;
-            border-radius: 8px;
-            cursor: pointer;
-            margin: 5px;
-            font-family: inherit;
-        }
-        
-        .test-button:hover {
-            transform: translateY(-2px);
-        }
-        
-        .log {
-            background: #000;
+
+        .success-message {
+            background: rgba(76, 175, 80, 0.2);
+            border: 2px solid #4CAF50;
+            border-radius: 10px;
             padding: 15px;
-            border-radius: 8px;
-            font-size: 0.9em;
-            max-height: 300px;
-            overflow-y: auto;
-            margin: 15px 0;
-        }
-        
-        .success { color: #4CAF50; }
-        .error { color: #ff6b6b; }
-        .info { color: #64b5f6; }
-        .warning { color: #ffb74d; }
-        
-        .status {
-            padding: 10px;
             margin: 10px 0;
-            border-radius: 5px;
-            font-weight: bold;
+            color: #c8e6c9;
+            text-align: center;
+            font-size: 0.9em;
         }
-        
-        .status.good { background: rgba(76, 175, 80, 0.2); color: #4CAF50; }
-        .status.bad { background: rgba(244, 67, 54, 0.2); color: #ff6b6b; }
-        .status.unknown { background: rgba(255, 193, 7, 0.2); color: #ffb74d; }
+
+        @media (max-width: 1024px) {
+            .jukebox-main {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+            
+            .player-section {
+                position: static;
+                order: -1;
+            }
+            
+            .album-art {
+                width: 200px;
+                height: 200px;
+                font-size: 3em;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .jukebox-container {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+
+        .lyrics-preview {
+            background: rgba(204, 41, 54, 0.1);
+            border-left: 3px solid #CC2936;
+            padding: 12px;
+            margin: 10px 0;
+            font-style: italic;
+            font-size: 0.85em;
+            border-radius: 0 8px 8px 0;
+            opacity: 0.8;
+        }
     </style>
 </head>
 <body>
-    <div class="diagnostic-container">
+    <div class="jukebox-container">
         <div class="header">
-            <h1>🛸 HOVERCRAFT AUDIO DIAGNOSTIC</h1>
-            <p>Let's figure out why the audio isn't playing</p>
+            <h1>🛸 HOVERCRAFT JUKEBOX</h1>
+            <div class="tagline">The Search Continues - Music as Memory, Memory as Hope</div>
         </div>
 
-        <div class="test-section">
-            <h2>📁 File Path Test</h2>
-            <p>Testing if the audio file can be accessed:</p>
-            
-            <audio id="pathTestPlayer" controls class="audio-player">
-                <source src="https://hovercraft.band/uploads/2025/mr-tooting-brown.mp3" type="audio/mpeg">
-                Your browser does not support the audio element.
-            </audio>
-            
-            <button class="test-button" onclick="testFilePath()">Test File Path</button>
-            <div id="pathResult" class="status unknown">Waiting for test...</div>
-        </div>
+        <div class="jukebox-main">
+            <div class="playlist-section">
+                <div class="section-header">
+                    <div class="section-title">The Lost Catalog</div>
+                    <div class="track-counter">1 track available</div>
+                </div>
+                
+                <div class="track-list" id="trackList">
+                    <div class="track-item" data-track="mr-tooting-brown">
+                        <div class="track-info">
+                            <div class="track-title">Mr Tooting Brown</div>
+                            <div class="track-meta">Hovercraft • October 1995</div>
+                            <div class="track-description">The breakthrough demo that topped local charts in Grimsby</div>
+                            <div class="lyrics-preview">
+                                "Mister Tooting Brown, you better knock this down / You paid a price to come this far..."
+                            </div>
+                        </div>
+                        <span class="track-status original">ORIGINAL</span>
+                    </div>
+                </div>
 
-        <div class="test-section">
-            <h2>🔊 Browser Audio Test</h2>
-            <p>Testing if your browser can play audio at all:</p>
-            
-            <button class="test-button" onclick="testBrowserAudio()">Test Browser Audio (Beep)</button>
-            <div id="browserResult" class="status unknown">Waiting for test...</div>
-        </div>
-
-        <div class="test-section">
-            <h2>🎮 Manual Controls</h2>
-            <p>Direct control over the audio element:</p>
-            
-            <button class="test-button" onclick="manualLoad()">Manual Load</button>
-            <button class="test-button" onclick="manualPlay()">Manual Play</button>
-            <button class="test-button" onclick="manualPause()">Manual Pause</button>
-            <button class="test-button" onclick="checkAudioState()">Check State</button>
-            
-            <div id="manualResult" class="status unknown">Ready for manual testing...</div>
-        </div>
-
-        <div class="test-section">
-            <h2>🔧 System Information</h2>
-            <div id="systemInfo">Loading system info...</div>
-        </div>
-
-        <div class="test-section">
-            <h2>📋 Debug Log</h2>
-            <div id="debugLog" class="log">
-                <div class="info">🚀 Diagnostic mode initialized...</div>
+                <div class="support-section" id="supportSection">
+                    <h4>💰 Support The Search</h4>
+                    <p style="font-size: 0.95em; color: #ccc; margin-bottom: 12px;">
+                        Pay-to-play for our original tracks helps fund the search for Charlie Pepper.<br>
+                        <em>All proceeds go toward finding our missing friend.</em>
+                    </p>
+                    <button class="support-btn" onclick="supportSearch()">
+                        £0.50 to unlock Hovercraft originals
+                    </button>
+                    <div style="margin-top: 12px; font-size: 0.85em; opacity: 0.7; color: #ccc;">
+                        Click the track above to get started!
+                    </div>
+                </div>
             </div>
-            <button class="test-button" onclick="clearLog()">Clear Log</button>
+
+            <div class="player-section">
+                <div class="now-playing">
+                    <div class="album-art" id="albumArt">🎸</div>
+                    <div class="track-details">
+                        <h3 id="currentTitle">Mr Tooting Brown</h3>
+                        <div class="artist" id="currentArtist">Hovercraft</div>
+                        <div class="description" id="currentDescription">The breakthrough demo that topped local charts in Grimsby</div>
+                    </div>
+                </div>
+
+                <div class="controls">
+                    <button class="control-btn" onclick="safeTogglePlay()" id="playBtn" title="Play/Pause">▶</button>
+                </div>
+
+                <audio id="audioPlayer" preload="metadata">
+                    <!-- UPDATE THIS URL WITH YOUR MICRO.BLOG HOSTED FILE -->
+                    <source src="https://hovercraft.band/uploads/2025/mr-tooting-brown.mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+
+                <div class="success-message" id="successMessage" style="display: none;">
+                    Audio loaded successfully! Click play to hear Charlie Pepper's breakthrough demo.
+                </div>
+
+                <div class="progress-container">
+                    <div class="progress-bar" onclick="seek(event)">
+                        <div class="progress" id="progress"></div>
+                    </div>
+                    <div class="time-display">
+                        <span id="currentTime">0:00</span>
+                        <span id="duration">0:00</span>
+                    </div>
+                </div>
+
+                <div class="volume-control">
+                    <span style="font-size: 1.2em;">🔊</span>
+                    <input type="range" class="volume-slider" min="0" max="100" value="75" oninput="setVolume(this.value)">
+                    <span id="volumeDisplay" style="font-size: 0.9em; min-width: 30px;">75%</span>
+                </div>
+
+                <div style="text-align: center; color: #666; font-size: 0.85em; margin-top: 15px;">
+                    🎙️ Audio hosted on hovercraft.band via Micro.blog
+                </div>
+            </div>
+        </div>
+
+        <div class="search-message">
+            <h3>🔍 Help Us Find Charlie Pepper</h3>
+            <p>Every reconstructed song is both a tribute to what was lost and a signal to what might still be found. If you have any information about Piers "Charlie Pepper" Wildman, please get in touch.</p>
+            
+            <div class="search-contact">
+                <strong>Last known location:</strong> Bournemouth area<br>
+                <strong>Contact:</strong> god@hovercraft.band<br>
+                <em>The search continues...</em>
+            </div>
         </div>
     </div>
 
     <script>
-        let audioPlayer;
-        let logElement;
+        let isPlaying = false;
+        let audioPlayer = null;
+        let hasPaidAccess = false;
+        let playPromise = null;
 
-        function log(message, type = 'info') {
-            const timestamp = new Date().toLocaleTimeString();
-            const logEntry = document.createElement('div');
-            logEntry.className = type;
-            logEntry.innerHTML = `[${timestamp}] ${message}`;
-            logElement.appendChild(logEntry);
-            logElement.scrollTop = logElement.scrollHeight;
-            console.log(`[${type.toUpperCase()}] ${message}`);
-        }
-
-        function clearLog() {
-            logElement.innerHTML = '<div class="info">🚀 Log cleared...</div>';
-        }
-
-        function updateStatus(elementId, message, status) {
-            const element = document.getElementById(elementId);
-            element.textContent = message;
-            element.className = `status ${status}`;
-        }
-
-        function testFilePath() {
-            log('Testing file path: audio/mr-tooting-brown.mp3', 'info');
-            updateStatus('pathResult', 'Testing...', 'unknown');
-
-            audioPlayer.addEventListener('loadeddata', function() {
-                log('✅ File loaded successfully!', 'success');
-                updateStatus('pathResult', 'File found and loaded!', 'good');
-                log(`Duration: ${audioPlayer.duration} seconds`, 'info');
-                log(`Ready state: ${audioPlayer.readyState}`, 'info');
-            }, { once: true });
-
+        function initializeApp() {
+            audioPlayer = document.getElementById('audioPlayer');
+            
+            // Set up audio event listeners
+            audioPlayer.addEventListener('loadedmetadata', updateDuration);
+            audioPlayer.addEventListener('timeupdate', updateProgress);
+            audioPlayer.addEventListener('canplaythrough', function() {
+                console.log('Audio ready to play!');
+                document.getElementById('successMessage').style.display = 'block';
+            });
+            audioPlayer.addEventListener('play', function() {
+                isPlaying = true;
+                updatePlayButton();
+                document.getElementById('albumArt').classList.add('playing');
+                document.querySelector('.track-item').classList.add('playing');
+            });
+            audioPlayer.addEventListener('pause', function() {
+                isPlaying = false;
+                updatePlayButton();
+                document.getElementById('albumArt').classList.remove('playing');
+                document.querySelector('.track-item').classList.remove('playing');
+            });
             audioPlayer.addEventListener('error', function(e) {
-                log('❌ File load error: ' + (e.message || 'Unknown error'), 'error');
-                updateStatus('pathResult', 'File not found or corrupted', 'bad');
-            }, { once: true });
+                console.error('Audio error:', e);
+            });
 
-            audioPlayer.load();
-        }
-
-        function testBrowserAudio() {
-            log('Testing browser audio capabilities...', 'info');
-            updateStatus('browserResult', 'Testing...', 'unknown');
-
-            // Create a simple audio context to test browser audio
-            try {
-                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-
-                oscillator.frequency.setValueAtTime(440, audioContext.currentTime); // A note
-                gainNode.gain.setValueAtTime(0.1, audioContext.currentTime);
-
-                oscillator.start();
-                oscillator.stop(audioContext.currentTime + 0.5);
-
-                log('✅ Browser audio test successful!', 'success');
-                updateStatus('browserResult', 'Browser can play audio', 'good');
-
-                oscillator.onended = function() {
-                    audioContext.close();
-                };
-            } catch (error) {
-                log('❌ Browser audio test failed: ' + error.message, 'error');
-                updateStatus('browserResult', 'Browser audio not working', 'bad');
-            }
-        }
-
-        function manualLoad() {
-            log('Manual load triggered...', 'info');
-            audioPlayer.load();
-            updateStatus('manualResult', 'Load command sent', 'unknown');
-        }
-
-        function manualPlay() {
-            log('Manual play triggered...', 'info');
+            // Set up track click handler
+            document.querySelector('.track-item').addEventListener('click', function() {
+                if (!hasPaidAccess) {
+                    supportSearch();
+                } else {
+                    safeTogglePlay();
+                }
+            });
             
-            const playPromise = audioPlayer.play();
-            if (playPromise !== undefined) {
-                playPromise.then(() => {
-                    log('✅ Manual play successful!', 'success');
-                    updateStatus('manualResult', 'Playing successfully!', 'good');
-                }).catch(error => {
-                    log('❌ Manual play failed: ' + error.message, 'error');
-                    updateStatus('manualResult', 'Play failed: ' + error.message, 'bad');
-                });
+            // Set initial volume
+            setVolume(75);
+        }
+
+        function safeTogglePlay() {
+            if (!hasPaidAccess) {
+                supportSearch();
+                return;
+            }
+
+            if (isPlaying) {
+                if (playPromise !== null) {
+                    playPromise.then(() => {
+                        audioPlayer.pause();
+                        playPromise = null;
+                    }).catch(error => {
+                        audioPlayer.pause();
+                        playPromise = null;
+                    });
+                } else {
+                    audioPlayer.pause();
+                }
             } else {
-                log('⚠️ Play promise is undefined', 'warning');
-                updateStatus('manualResult', 'Old browser - no promise support', 'unknown');
+                playPromise = audioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        playPromise = null;
+                    }).catch(error => {
+                        console.log('Play failed:', error.message);
+                        playPromise = null;
+                    });
+                }
             }
         }
 
-        function manualPause() {
-            log('Manual pause triggered...', 'info');
-            audioPlayer.pause();
-            updateStatus('manualResult', 'Pause command sent', 'unknown');
+        function updatePlayButton() {
+            const playBtn = document.getElementById('playBtn');
+            playBtn.textContent = isPlaying ? '⏸' : '▶';
         }
 
-        function checkAudioState() {
-            log('=== AUDIO STATE CHECK ===', 'info');
-            log(`Current time: ${audioPlayer.currentTime}`, 'info');
-            log(`Duration: ${audioPlayer.duration}`, 'info');
-            log(`Volume: ${audioPlayer.volume}`, 'info');
-            log(`Muted: ${audioPlayer.muted}`, 'info');
-            log(`Paused: ${audioPlayer.paused}`, 'info');
-            log(`Ended: ${audioPlayer.ended}`, 'info');
-            log(`Ready state: ${audioPlayer.readyState}`, 'info');
-            log(`Network state: ${audioPlayer.networkState}`, 'info');
-            log(`Source: ${audioPlayer.src}`, 'info');
+        function updateDuration() {
+            const duration = audioPlayer.duration;
+            if (duration && !isNaN(duration)) {
+                document.getElementById('duration').textContent = formatTime(duration);
+            }
+        }
+
+        function updateProgress() {
+            const current = audioPlayer.currentTime;
+            const duration = audioPlayer.duration;
             
-            updateStatus('manualResult', `State: ${audioPlayer.paused ? 'Paused' : 'Playing'}, Ready: ${audioPlayer.readyState}`, 'unknown');
-        }
-
-        function loadSystemInfo() {
-            const info = document.getElementById('systemInfo');
-            const userAgent = navigator.userAgent;
-            const isChrome = /Chrome/.test(userAgent);
-            const isSafari = /Safari/.test(userAgent) && !isChrome;
-            const isFirefox = /Firefox/.test(userAgent);
-            const isEdge = /Edge/.test(userAgent);
-
-            let browserInfo = 'Unknown browser';
-            if (isChrome) browserInfo = 'Chrome';
-            else if (isSafari) browserInfo = 'Safari';
-            else if (isFirefox) browserInfo = 'Firefox';
-            else if (isEdge) browserInfo = 'Edge';
-
-            const audioSupport = {
-                mp3: audioPlayer.canPlayType('audio/mpeg'),
-                ogg: audioPlayer.canPlayType('audio/ogg'),
-                wav: audioPlayer.canPlayType('audio/wav')
-            };
-
-            info.innerHTML = `
-                <p><strong>Browser:</strong> ${browserInfo}</p>
-                <p><strong>User Agent:</strong> ${userAgent}</p>
-                <p><strong>Audio Context Support:</strong> ${window.AudioContext || window.webkitAudioContext ? 'Yes' : 'No'}</p>
-                <p><strong>MP3 Support:</strong> ${audioSupport.mp3 || 'No'}</p>
-                <p><strong>OGG Support:</strong> ${audioSupport.ogg || 'No'}</p>
-                <p><strong>WAV Support:</strong> ${audioSupport.wav || 'No'}</p>
-                <p><strong>Current URL:</strong> ${window.location.href}</p>
-            `;
-
-            log(`Browser: ${browserInfo}`, 'info');
-            log(`MP3 support: ${audioSupport.mp3 || 'None'}`, 'info');
-        }
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', function() {
-            audioPlayer = document.getElementById('pathTestPlayer');
-            logElement = document.getElementById('debugLog');
-            
-            // Set up comprehensive event listeners
-            audioPlayer.addEventListener('loadstart', () => log('🔄 Load started', 'info'));
-            audioPlayer.addEventListener('durationchange', () => log(`📏 Duration: ${audioPlayer.duration}s`, 'info'));
-            audioPlayer.addEventListener('loadedmetadata', () => log('📋 Metadata loaded', 'success'));
-            audioPlayer.addEventListener('loadeddata', () => log('📦 Data loaded', 'success'));
-            audioPlayer.addEventListener('canplay', () => log('✅ Can play', 'success'));
-            audioPlayer.addEventListener('canplaythrough', () => log('✅ Can play through', 'success'));
-            audioPlayer.addEventListener('play', () => log('▶️ Play event fired', 'success'));
-            audioPlayer.addEventListener('playing', () => log('🎵 Playing event fired', 'success'));
-            audioPlayer.addEventListener('pause', () => log('⏸️ Pause event fired', 'info'));
-            audioPlayer.addEventListener('ended', () => log('🏁 Ended event fired', 'info'));
-            audioPlayer.addEventListener('error', (e) => log('❌ Error: ' + e.message, 'error'));
-            audioPlayer.addEventListener('stalled', () => log('⚠️ Stalled', 'warning'));
-            audioPlayer.addEventListener('waiting', () => log('⏳ Waiting for data', 'warning'));
-
-            loadSystemInfo();
-            log('🛸 Diagnostic ready - click buttons to test!', 'success');
-        });
-    </script>
-</body>
-</html>
+            if (current && !isNaN(current)) {
+                do
