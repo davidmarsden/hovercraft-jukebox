@@ -440,7 +440,7 @@
                     </div>
                 </div>
 
-                <div class="support-section">
+                <div class="support-section" id="supportSection">
                     <h4>💰 Support The Search</h4>
                     <p style="font-size: 0.95em; color: #ccc; margin-bottom: 12px;">
                         Pay-to-play for our original tracks helps fund the search for Charlie Pepper.<br>
@@ -466,12 +466,11 @@
                 </div>
 
                 <div class="controls">
-                    <button class="control-btn" onclick="togglePlay()" id="playBtn" title="Play/Pause">▶</button>
+                    <button class="control-btn" onclick="safeTogglePlay()" id="playBtn" title="Play/Pause">▶</button>
                 </div>
 
-                <audio id="audioPlayer" style="display: none;">
+                <audio id="audioPlayer" preload="metadata">
                     <source src="audio/mr-tooting-brown.mp3" type="audio/mpeg">
-                    <source src="./audio/mr-tooting-brown.mp3" type="audio/mpeg">
                     Your browser does not support the audio element.
                 </audio>
 
@@ -517,6 +516,7 @@
         let isPlaying = false;
         let audioPlayer = null;
         let hasPaidAccess = false;
+        let playPromise = null;
 
         function initializeApp() {
             audioPlayer = document.getElementById('audioPlayer');
@@ -550,7 +550,7 @@
                 if (!hasPaidAccess) {
                     supportSearch();
                 } else {
-                    togglePlay();
+                    safeTogglePlay();
                 }
             });
             
@@ -558,19 +558,41 @@
             setVolume(75);
         }
 
-        function togglePlay() {
+        // Safer play/pause function that handles timing issues
+        function safeTogglePlay() {
             if (!hasPaidAccess) {
                 supportSearch();
                 return;
             }
 
             if (isPlaying) {
-                audioPlayer.pause();
+                // If currently playing, pause
+                if (playPromise !== null) {
+                    playPromise.then(() => {
+                        audioPlayer.pause();
+                        playPromise = null;
+                    }).catch(error => {
+                        console.log('Pause after play promise resolved');
+                        audioPlayer.pause();
+                        playPromise = null;
+                    });
+                } else {
+                    audioPlayer.pause();
+                }
             } else {
-                audioPlayer.play().catch(e => {
-                    console.error('Play failed:', e);
-                    alert('Playback failed. Make sure the audio file is properly uploaded.');
-                });
+                // If currently paused, play
+                playPromise = audioPlayer.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        // Automatic playback started successfully
+                        console.log('Audio started playing');
+                        playPromise = null;
+                    }).catch(error => {
+                        // Auto-play was prevented or failed
+                        console.log('Play failed:', error.message);
+                        playPromise = null;
+                    });
+                }
             }
         }
 
@@ -635,8 +657,7 @@
                 hasPaidAccess = true;
                 
                 // Update support section
-                const supportSection = document.querySelector('.support-section');
-                supportSection.innerHTML = `
+                document.getElementById('supportSection').innerHTML = `
                     <h4 style="color: #4CAF50;">✅ Search Supporter</h4>
                     <p style="color: #4CAF50; margin-bottom: 8px;">
                         Thank you for supporting the search for Charlie Pepper!<br>
@@ -647,10 +668,10 @@
                     </div>
                 `;
                 
-                // Auto-play
+                // Wait a moment then try to play
                 setTimeout(() => {
-                    togglePlay();
-                }, 500);
+                    safeTogglePlay();
+                }, 800);
             }
         }
 
